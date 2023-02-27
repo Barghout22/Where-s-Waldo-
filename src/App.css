@@ -138,7 +138,8 @@ li {
   font-weight: bold;
 }
 
-.startGameBtn {
+.startGameBtn,
+.clearBoardBtn {
   font-family: Kool-Font;
   font-size: 3rem;
   font-weight: bold;
@@ -149,7 +150,8 @@ li {
   padding: 20px;
 }
 
-.startGameBtn:hover {
+.startGameBtn:hover,
+.clearBoardBtn:hover {
   box-shadow: 5px 5px black;
 }
 
@@ -181,4 +183,32 @@ li {
 input {
   width: 150px;
   border-radius: 5px;
+}
+.scoreBoard {
+  position: absolute;
+  z-index: 1;
+  width: 100vw;
+  height: 100vh;
+  font-family: monospace;
+  font-size: 3rem;
+  background-color: white;
+}
+.highScoreItem {
+  border: 2px black dashed;
+  width: 350px;
+  font-size: 20px;
+  padding: 20px;
+}
+.scoreBoardDisp {
+  display: flex;
+  justify-content: space-around;
+  padding: 40px;
+}
+
+.clearBoardBtn {
+  height: 160px;
+}
+
+.highScoreList {
+  list-style: decimal;
 }

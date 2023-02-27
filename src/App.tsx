@@ -7,22 +7,46 @@ import GameStartDisplay from "./components/GameStartDisplay";
 import WrongSelectionDisp from "./components/WrongSelectionDisp";
 import FoundCharacterDisp from "./components/FoundCharacterDisp";
 import GameEndDisplay from "./components/GameEndDisplay";
+import DisplayScoresScreen from "./components/DisplayScoresScreen";
+import { initializeApp } from "firebase/app";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  updateDoc,
+  doc,
+  setDoc,
+} from "firebase/firestore";
 import luffy from "./images/luffy.png";
 import Yamato from "./images/Yamato.jpg";
 import jinbe from "./images/jinbe.png";
 import Hawkins from "./images/Hawkins.jpg";
 import Apoo from "./images/Apoo.jpg";
-// import Waldo from "./images/Waldo.png";
-// import Kanjuro from "./images/Kanjuro.jpg";
 import Bartolomeo from "./images/Bartolomeo.jpeg";
-
 import { useState } from "react";
-// const uniqid = require("uniqid");
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBK8LHUDJMheJMJaoLOX-SCl_4cMgrYclw",
+  authDomain: "findluffy-81250.firebaseapp.com",
+  projectId: "findluffy-81250",
+  storageBucket: "findluffy-81250.appspot.com",
+  messagingSenderId: "509687126544",
+  appId: "1:509687126544:web:81afde02034783c7154895",
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 function App() {
   const [gameStart, setGameStart] = useState(false);
   const [gameEnd, setGameEnd] = useState(false);
+  const [displayAllScores, setDisplayAllScores] = useState(false);
   const [gameBeginTime, setGameBeginTime] = useState(0);
   const [gameEndTime, setGameEndTime] = useState(0);
+  const [allUserValues, setAllUserValues] = useState([
+    { name: "NA", time: -1 },
+  ]);
   const [foundCharacter, setFoundCharacter] = useState("None");
   const [madeWrongSelection, setMadeWrongSelection] = useState(false);
   const [clicked, setClicked] = useState(false);
@@ -47,7 +71,6 @@ function App() {
       myItems.splice(posOfItem, 1, itemChecked!);
       setSearchItems(myItems);
       setPreviouslyClicked([...previouslyClicked, index]);
-      console.log(previouslyClicked.length);
       if (previouslyClicked.length === 6) {
         const time =
           new Date().getHours() * 60 * 60 +
@@ -86,6 +109,26 @@ function App() {
         new Date().getMinutes() * 60 +
         new Date().getSeconds()
     );
+    let allItems = searchItems;
+    allItems.forEach((item) => {
+      item.found = false;
+    });
+    setSearchItems(allItems);
+    setPreviouslyClicked([-1]);
+  }
+  function updateUserValues(userValue: { name: string; time: number }) {
+    let allValues = allUserValues;
+    for (let i = 0; i < allValues.length; i++) {
+      if (userValue.time < allValues[i].time) {
+        allValues.splice(i, 0, userValue);
+        allValues = allValues.filter((items) => items.time >= 0);
+        setAllUserValues(allValues);
+        return;
+      }
+    }
+    allValues.push(userValue);
+    allValues = allValues.filter((items) => items.time >= 0);
+    setAllUserValues(allValues);
   }
   let items = [0];
   for (let i = 1; i < 345; i++) {
@@ -94,7 +137,7 @@ function App() {
 
   return (
     <div className="App">
-      {!gameStart && (
+      {!gameStart && !displayAllScores && (
         <GameStartDisplay beginGame={beginGame} searchItems={searchItems} />
       )}
       {gameStart && !gameEnd && (
@@ -123,7 +166,36 @@ function App() {
           ))}
         </div>
       )}
-      {gameEnd && <GameEndDisplay gameEndTime={gameEndTime} />}{" "}
+      {gameEnd && (
+        <GameEndDisplay
+          gameEndTime={gameEndTime}
+          setGameEnd={setGameEnd}
+          setDisplayAllScores={setDisplayAllScores}
+          recordUserValues={updateUserValues}
+          setGameStart={setGameStart}
+        />
+      )}{" "}
+      {/* //scoreboard here */}
+      {
+        displayAllScores && (
+          <DisplayScoresScreen
+            allUserValues={allUserValues}
+            startNewGame={beginGame}
+            setDisplayAllScores={setDisplayAllScores}
+          />
+        )
+
+        // <div>
+        //   <h2>ScoreBoard</h2>
+        //   <ol>
+        //     {allUserValues.map((item) => (
+        //       <li>
+        //         {item.name}:{item.time}seconds
+        //       </li>
+        //     ))}
+        //   </ol>
+        // </div>
+      }
     </div>
   );
 }

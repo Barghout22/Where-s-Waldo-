@@ -19,6 +19,7 @@ const Choicelist = ({
       {searchItems.map((item) =>
         item.found ? null : (
           <span
+            key={item.block}
             className="options"
             onClick={() => {
               checkChoice(index, item.name);

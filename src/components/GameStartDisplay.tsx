@@ -1,10 +1,10 @@
 import React from "react";
 
 const GameStartDisplay = ({
-  setGameStart,
+  beginGame,
   searchItems,
 }: {
-  setGameStart: Function;
+  beginGame: Function;
   searchItems: {
     image: string;
     name: string;
@@ -19,14 +19,14 @@ const GameStartDisplay = ({
       </h2>
       <ul>
         {searchItems.map((item) => (
-          <li>
+          <li key={item.block}>
             <img className="introImage" src={item.image} alt="" />
             {item.name}
           </li>
         ))}
       </ul>
 
-      <button className="startGameBtn" onClick={() => setGameStart(true)}>
+      <button className="startGameBtn" onClick={() => beginGame()}>
         start game!
       </button>
     </div>

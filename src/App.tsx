@@ -6,6 +6,7 @@ import MeshComponent from "./components/MeshComponent";
 import GameStartDisplay from "./components/GameStartDisplay";
 import WrongSelectionDisp from "./components/WrongSelectionDisp";
 import FoundCharacterDisp from "./components/FoundCharacterDisp";
+import GameEndDisplay from "./components/GameEndDisplay";
 import luffy from "./images/luffy.png";
 import Yamato from "./images/Yamato.jpg";
 import jinbe from "./images/jinbe.png";
@@ -19,8 +20,9 @@ import { useState } from "react";
 // const uniqid = require("uniqid");
 function App() {
   const [gameStart, setGameStart] = useState(false);
-  const [gameBeginTime, setGameBeginTime] = useState(new Date());
-  const [gameEndTime, setGameEndTime] = useState(new Date());
+  const [gameEnd, setGameEnd] = useState(false);
+  const [gameBeginTime, setGameBeginTime] = useState(0);
+  const [gameEndTime, setGameEndTime] = useState(0);
   const [foundCharacter, setFoundCharacter] = useState("None");
   const [madeWrongSelection, setMadeWrongSelection] = useState(false);
   const [clicked, setClicked] = useState(false);
@@ -45,6 +47,15 @@ function App() {
       myItems.splice(posOfItem, 1, itemChecked!);
       setSearchItems(myItems);
       setPreviouslyClicked([...previouslyClicked, index]);
+      console.log(previouslyClicked.length);
+      if (previouslyClicked.length === 6) {
+        const time =
+          new Date().getHours() * 60 * 60 +
+          new Date().getMinutes() * 60 +
+          new Date().getSeconds();
+        setGameEndTime(time - gameBeginTime);
+        setGameEnd(true);
+      }
       setFoundCharacter(name);
       setTimeout(() => {
         setFoundCharacter("None");
@@ -67,6 +78,15 @@ function App() {
       setIsActive(-1);
     }
   }
+
+  function beginGame() {
+    setGameStart(true);
+    setGameBeginTime(
+      new Date().getHours() * 60 * 60 +
+        new Date().getMinutes() * 60 +
+        new Date().getSeconds()
+    );
+  }
   let items = [0];
   for (let i = 1; i < 345; i++) {
     items.push(i);
@@ -75,12 +95,9 @@ function App() {
   return (
     <div className="App">
       {!gameStart && (
-        <GameStartDisplay
-          setGameStart={setGameStart}
-          searchItems={searchItems}
-        />
+        <GameStartDisplay beginGame={beginGame} searchItems={searchItems} />
       )}
-      {gameStart && (
+      {gameStart && !gameEnd && (
         <div className="main">
           <Header searchItems={searchItems} />
           {foundCharacter !== "None" && (
@@ -106,8 +123,11 @@ function App() {
           ))}
         </div>
       )}
+      {gameEnd && <GameEndDisplay gameEndTime={gameEndTime} />}{" "}
     </div>
   );
 }
 
 export default App;
+
+// displayAllScores = {};

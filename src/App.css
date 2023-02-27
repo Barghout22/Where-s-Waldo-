@@ -60,6 +60,7 @@
   background-color: rgba(255, 255, 255, 0.9);
   text-align: center;
   box-shadow: 5px, 5px rgba(0, 0, 0, 0.3);
+  z-index: 1;
 }
 
 .containerItem {
@@ -76,7 +77,8 @@
 }
 .found {
   background-color: rgba(0, 0, 0, 0.3);
-  border: 5px black dashed;
+  border: 3px black dashed;
+  border-radius: 4px;
 }
 
 .characterImage {
@@ -104,7 +106,8 @@
   margin-top: 5px;
 }
 
-.gameStartDisp {
+.gameStartDisp,
+.gameEndDisp {
   font-family: Kool-Font;
   position: absolute;
   padding: 50px;
@@ -142,18 +145,21 @@ li {
   border-radius: 5px;
   border: none;
   background-color: rgb(158, 158, 158);
+  margin: 20px;
+  padding: 20px;
 }
 
 .startGameBtn:hover {
   box-shadow: 5px 5px black;
 }
 
-.WrongSelectionDisplay,.RightSelectionDisplay {
+.WrongSelectionDisplay,
+.RightSelectionDisplay {
   position: absolute;
   background-color: red;
   color: white;
   text-align: center;
-  margin-top:40vh;
+  margin-top: 40vh;
   left: 40%;
   font-size: 5rem;
   font-weight: bold;
@@ -162,8 +168,17 @@ li {
   font-family: Kool-Font;
   box-shadow: 5px 5px black;
   text-shadow: 2px 2px black;
+  z-index: 1;
 }
 
-.RightSelectionDisplay{
+.RightSelectionDisplay {
   background-color: rgb(62, 167, 62);
+}
+.endgameElement {
+  font-weight: 3rem;
+}
+
+input {
+  width: 150px;
+  border-radius: 5px;
 }

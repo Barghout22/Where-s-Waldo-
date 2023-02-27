@@ -1,3 +1,8 @@
+@font-face {
+  font-family: Kool-Font;
+  src: url(./brush-script-mt/brush\ script\ mt\ kursiv.ttf);
+}
+
 .App {
   position: relative;
   display: flex;
@@ -34,16 +39,27 @@
   z-index: 1;
 }
 .options {
-  padding: 10px;
+  padding: 10%;
+  font-size: 12px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .options:hover {
   background-color: rgb(171, 167, 167);
 }
 
-header {
+.header {
   display: flex;
+  justify-content: space-around;
   flex-direction: column;
-  width: 300px;
+  width: 160px;
+  height: 100%;
+  position: fixed;
+  background-color: rgba(255, 255, 255, 0.9);
+  text-align: center;
+  box-shadow: 5px, 5px rgba(0, 0, 0, 0.3);
 }
 
 .containerItem {
@@ -61,4 +77,73 @@ header {
 .found {
   background-color: rgba(0, 0, 0, 0.3);
   border: 5px black dashed;
+}
+
+.characterImage {
+  width: 50%;
+  border-radius: 100%;
+}
+
+.foundOption,
+.notFoundOption {
+  height: 10%;
+  display: flex;
+  justify-content: center;
+}
+.notFoundOption {
+  opacity: 1;
+}
+.foundOption {
+  opacity: 0.4;
+}
+
+.gameTitle {
+  font-size: 3.5rem;
+  font-family: Kool-Font;
+  text-shadow: 5px 5px grey;
+  margin-top: 5px;
+}
+
+.gameStartDisp {
+  font-family: Kool-Font;
+  position: absolute;
+  padding: 50px;
+  margin-top: 200px;
+  left: 40%;
+  width: 500px;
+  background-color: rgba(255, 255, 255, 0.9);
+  text-align: center;
+  box-shadow: 5px, 5px rgba(0, 0, 0, 0.3);
+}
+ul {
+  list-style: none;
+}
+
+.introImage {
+  width: 20%;
+  border-radius: 100%;
+  height: 92px;
+}
+li {
+  font-size: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.introTitle {
+  font-size: 3.5rem;
+  font-weight: bold;
+}
+
+.startGameBtn {
+  font-family: Kool-Font;
+  font-size: 3rem;
+  font-weight: bold;
+  border-radius: 5px;
+  border: none;
+  background-color: rgb(158, 158, 158);
+}
+
+.startGameBtn:hover {
+  box-shadow: 5px 5px black;
 }

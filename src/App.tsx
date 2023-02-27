@@ -1,24 +1,38 @@
 import React from "react";
 import "./App.css";
-// import wheresLuffy from "./images/wheresLuffy.png";
+import Header from "./components/Header";
+import Choicelist from "./components/Choicelist";
+import MeshComponent from "./components/MeshComponent";
+import GameStartDisplay from "./components/GameStartDisplay";
+import luffy from "./images/luffy.png";
+import Yamato from "./images/Yamato.jpg";
+import jinbe from "./images/jinbe.png";
+import Hawkins from "./images/Hawkins.jpg";
+import Apoo from "./images/Apoo.jpg";
+// import Waldo from "./images/Waldo.png";
+// import Kanjuro from "./images/Kanjuro.jpg";
+import Bartolomeo from "./images/Bartolomeo.jpeg";
+
 import { useState } from "react";
 // const uniqid = require("uniqid");
 function App() {
+  const [gameStart, setGameStart] = useState(false);
+  const [gameBeginTime, setGameBeginTime] = useState(new Date());
+  const [gameEndTime, setGameEndTime] = useState(new Date());
   const [clicked, setClicked] = useState(false);
   const [isActive, setIsActive] = useState(-1);
   const [previouslyClicked, setPreviouslyClicked] = useState([-1]);
   const [searchItems, setSearchItems] = useState([
-    { name: "Luffy", block: 58, found: false },
-    { name: "Yamato", block: 303, found: false },
-    { name: "Jinbe", block: 128, found: false },
-    { name: "Hawkins", block: 198, found: false },
-    { name: "Apoo", block: 242, found: false },
-    { name: "Waldo", block: 283, found: false },
-    { name: "Bartolomeo", block: 88, found: false },
+    { image: luffy, name: "Luffy", block: 58, found: false },
+    { image: Yamato, name: "Yamato", block: 303, found: false },
+    { image: jinbe, name: "Jinbe", block: 128, found: false },
+    { image: Hawkins, name: "Hawkins", block: 198, found: false },
+    { image: Apoo, name: "Apoo", block: 242, found: false },
+    { image: Bartolomeo, name: "Bartolomeo", block: 88, found: false },
   ]);
 
   function checkChoice(index: number, name: string) {
-    setClicked(false);
+    displayItem(index);
     let myItems = searchItems;
     let itemChecked = myItems.find((item) => item.name === name);
     let posOfItem = myItems.findIndex((item) => item.name === name);
@@ -48,122 +62,35 @@ function App() {
 
   return (
     <div className="App">
-      {/* <header>
-        <h1>Find Luffy</h1>
-        <span>Luffy</span>
-        <span>Momonosuke</span>
-        <span>Aokiji</span>
-        <span>Basel Hawkins</span>
-        <span>Scratchmen Apoo</span>
-        <span>Jinbe</span>
-        <span>Waldo</span>
-      </header> 
-       onClick={displayClick}
-       style={myListStyle}
-      */}
-      <div className="main">
-        {items.map((item, index) => (
-          <div key={index}>
-            <div
-              className={
-                isActive === index
-                  ? "containerItem display"
-                  : previouslyClicked.includes(index)
-                  ? "containerItem found"
-                  : "containerItem "
-              }
-              onClick={() => {
-                displayItem(index);
-              }}
-            >
-              {/* {item} */}
+      {!gameStart && (
+        <GameStartDisplay
+          setGameStart={setGameStart}
+          searchItems={searchItems}
+        />
+      )}
+      {gameStart && (
+        <div className="main">
+          <Header searchItems={searchItems} />
+
+          {items.map((index) => (
+            <div key={index}>
+              <MeshComponent
+                index={index}
+                isActive={isActive}
+                previouslyClicked={previouslyClicked}
+                displayItem={displayItem}
+              />
+              {isActive === index && (
+                <Choicelist
+                  searchItems={searchItems}
+                  index={index}
+                  checkChoice={checkChoice}
+                />
+              )}
             </div>
-            {isActive === index && (
-              <div>
-                {/* <div className="clickBox" style={mystyle}></div> */}
-                <div className="choiceList">
-                  {!searchItems[0].found && (
-                    <span
-                      className="options "
-                      onClick={() => {
-                        checkChoice(index, "Luffy");
-                      }}
-                    >
-                      Luffy
-                    </span>
-                  )}
-                  {!searchItems[1].found && (
-                    <span
-                      className="options "
-                      onClick={() => {
-                        checkChoice(index, "Yamato");
-                      }}
-                    >
-                      Yamato
-                    </span>
-                  )}
-                  {!searchItems[2].found && (
-                    <span
-                      className="options "
-                      onClick={() => {
-                        checkChoice(index, "Jinbe");
-                      }}
-                    >
-                      Jinbe
-                    </span>
-                  )}
-                  {!searchItems[3].found && (
-                    <span
-                      className="options"
-                      onClick={() => {
-                        checkChoice(index, "Hawkins");
-                      }}
-                    >
-                      Basel Hawkins
-                    </span>
-                  )}
-                  {!searchItems[4].found && (
-                    <span
-                      className="options"
-                      onClick={() => {
-                        checkChoice(index, "Apoo");
-                      }}
-                    >
-                      Scratchmen Apoo
-                    </span>
-                  )}
-                  {!searchItems[5].found && (
-                    <span
-                      className="options "
-                      onClick={() => {
-                        checkChoice(index, "Waldo");
-                      }}
-                    >
-                      Waldo
-                    </span>
-                  )}
-                  {!searchItems[6].found && (
-                    <span
-                      className="options "
-                      onClick={() => {
-                        checkChoice(index, "Bartolomeo");
-                      }}
-                    >
-                      Bartolomeo
-                    </span>
-                  )}
-                </div>
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
-      {/* <div className="footer">
-        image credit goes to{" "}
-        <a href="https://www.reddit.com/r/OnePiece/comments/olbv3f/heres_the_collab_between_wheres_wally_and_op/">
-          This post on reddit
-        </a>
-      </div> */}
+          ))}
+        </div>
+      )}
     </div>
   );
 }

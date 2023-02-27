@@ -4,6 +4,8 @@ import Header from "./components/Header";
 import Choicelist from "./components/Choicelist";
 import MeshComponent from "./components/MeshComponent";
 import GameStartDisplay from "./components/GameStartDisplay";
+import WrongSelectionDisp from "./components/WrongSelectionDisp";
+import FoundCharacterDisp from "./components/FoundCharacterDisp";
 import luffy from "./images/luffy.png";
 import Yamato from "./images/Yamato.jpg";
 import jinbe from "./images/jinbe.png";
@@ -19,6 +21,8 @@ function App() {
   const [gameStart, setGameStart] = useState(false);
   const [gameBeginTime, setGameBeginTime] = useState(new Date());
   const [gameEndTime, setGameEndTime] = useState(new Date());
+  const [foundCharacter, setFoundCharacter] = useState("None");
+  const [madeWrongSelection, setMadeWrongSelection] = useState(false);
   const [clicked, setClicked] = useState(false);
   const [isActive, setIsActive] = useState(-1);
   const [previouslyClicked, setPreviouslyClicked] = useState([-1]);
@@ -41,7 +45,15 @@ function App() {
       myItems.splice(posOfItem, 1, itemChecked!);
       setSearchItems(myItems);
       setPreviouslyClicked([...previouslyClicked, index]);
+      setFoundCharacter(name);
+      setTimeout(() => {
+        setFoundCharacter("None");
+      }, 1500);
     } else {
+      setMadeWrongSelection(true);
+      setTimeout(() => {
+        setMadeWrongSelection(false);
+      }, 1500);
     }
   }
 
@@ -71,7 +83,10 @@ function App() {
       {gameStart && (
         <div className="main">
           <Header searchItems={searchItems} />
-
+          {foundCharacter !== "None" && (
+            <FoundCharacterDisp name={foundCharacter} />
+          )}
+          {madeWrongSelection && <WrongSelectionDisp />}
           {items.map((index) => (
             <div key={index}>
               <MeshComponent

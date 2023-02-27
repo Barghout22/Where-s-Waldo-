@@ -147,3 +147,23 @@ li {
 .startGameBtn:hover {
   box-shadow: 5px 5px black;
 }
+
+.WrongSelectionDisplay,.RightSelectionDisplay {
+  position: absolute;
+  background-color: red;
+  color: white;
+  text-align: center;
+  margin-top:40vh;
+  left: 40%;
+  font-size: 5rem;
+  font-weight: bold;
+  padding: 50px;
+  border-radius: 15px;
+  font-family: Kool-Font;
+  box-shadow: 5px 5px black;
+  text-shadow: 2px 2px black;
+}
+
+.RightSelectionDisplay{
+  background-color: rgb(62, 167, 62);
+}

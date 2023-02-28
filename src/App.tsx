@@ -9,21 +9,14 @@ import FoundCharacterDisp from "./components/FoundCharacterDisp";
 import GameEndDisplay from "./components/GameEndDisplay";
 import DisplayScoresScreen from "./components/DisplayScoresScreen";
 import { initializeApp } from "firebase/app";
-import {
-  getFirestore,
-  collection,
-  getDocs,
-  updateDoc,
-  doc,
-  setDoc,
-} from "firebase/firestore";
+import { getFirestore, collection, getDocs, addDoc } from "firebase/firestore";
 import luffy from "./images/luffy.png";
 import Yamato from "./images/Yamato.jpg";
 import jinbe from "./images/jinbe.png";
 import Hawkins from "./images/Hawkins.jpg";
 import Apoo from "./images/Apoo.jpg";
 import Bartolomeo from "./images/Bartolomeo.jpeg";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBK8LHUDJMheJMJaoLOX-SCl_4cMgrYclw",
@@ -33,12 +26,55 @@ const firebaseConfig = {
   messagingSenderId: "509687126544",
   appId: "1:509687126544:web:81afde02034783c7154895",
 };
-
+interface score {
+  name: string;
+  time: number;
+}
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+async function saveScores(item: score) {
+  try {
+    await addDoc(collection(db, "scores"), {
+      name: item.name,
+      time: item.time,
+    });
+  } catch (error) {
+    console.error("Error writing new message to Firebase Database", error);
+  }
+}
+
+async function retrieveDB() {
+  let dataCollection: score[] = [{ name: "NA", time: -1 }];
+  const querySnapshot = await getDocs(collection(db, "scores"));
+  if (!querySnapshot.empty) {
+    querySnapshot.forEach((doc) => {
+      let placeHolder: score = {
+        name: doc.data().name,
+        time: doc.data().time,
+      };
+
+      dataCollection.push(placeHolder);
+    });
+  }
+  return dataCollection;
+}
+
 function App() {
+  useEffect(() => {
+    retrieveDB().then((scores) => {
+      if (scores.length > 1) {
+        let transitionVar = scores.filter((score) => score.time >= 0);
+        transitionVar = transitionVar.sort(function (a, b) {
+          if (a.time > b.time) return 1;
+          if (a.time < b.time) return -1;
+          return 0;
+        });
+        setAllUserValues(transitionVar);
+      }
+    });
+  }, []);
   const [gameStart, setGameStart] = useState(false);
   const [gameEnd, setGameEnd] = useState(false);
   const [displayAllScores, setDisplayAllScores] = useState(false);
@@ -118,6 +154,7 @@ function App() {
   }
   function updateUserValues(userValue: { name: string; time: number }) {
     let allValues = allUserValues;
+    saveScores(userValue);
     for (let i = 0; i < allValues.length; i++) {
       if (userValue.time < allValues[i].time) {
         allValues.splice(i, 0, userValue);

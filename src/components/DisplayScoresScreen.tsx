@@ -24,9 +24,9 @@ const DisplayScoresScreen = ({
         </button>
       </span>
       <ol className="highScoreList" type="1">
-        {allUserValues.map((item) => (
-          <li className="highScoreItem" key={item.time}>
-            {item.name}: {item.time} seconds
+        {allUserValues.map((item, index) => (
+          <li className="highScoreItem" key={index}>
+            {index+1}. "{item.name}":  {item.time} seconds
           </li>
         ))}
       </ol>

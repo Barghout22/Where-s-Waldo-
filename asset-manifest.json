@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/Wheres-Luffy/static/css/main.254c9742.css",
+    "main.js": "/Wheres-Luffy/static/js/main.acd1726a.js",
+    "static/media/wheresLuffy.png": "/Wheres-Luffy/static/media/wheresLuffy.048e1a738a37f813df5d.png",
+    "static/media/jinbe.png": "/Wheres-Luffy/static/media/jinbe.1a5bcea2ea59010a75f9.png",
+    "static/media/aokiji.jpg": "/Wheres-Luffy/static/media/aokiji.b891af2f54bf1fbea28e.jpg",
+    "static/media/brush script mt kursiv.ttf": "/Wheres-Luffy/static/media/brush script mt kursiv.a8c79ff3c6ee20c7d44e.ttf",
+    "static/media/luffy.png": "/Wheres-Luffy/static/media/luffy.906a83458aea8d940bad.png",
+    "static/media/Hawkins.jpg": "/Wheres-Luffy/static/media/Hawkins.f1ec641902ee89c9406d.jpg",
+    "static/media/lucci.jpg": "/Wheres-Luffy/static/media/lucci.0d292cb9ed5b69db8a25.jpg",
+    "static/media/momonuske.jpeg": "/Wheres-Luffy/static/media/momonuske.d767868c32cebcecbc98.jpeg",
+    "index.html": "/Wheres-Luffy/index.html",
+    "main.254c9742.css.map": "/Wheres-Luffy/static/css/main.254c9742.css.map",
+    "main.acd1726a.js.map": "/Wheres-Luffy/static/js/main.acd1726a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.254c9742.css",
+    "static/js/main.acd1726a.js"
+  ]
+}

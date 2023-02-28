@@ -11,11 +11,12 @@ import DisplayScoresScreen from "./components/DisplayScoresScreen";
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs, addDoc } from "firebase/firestore";
 import luffy from "./images/luffy.png";
-import Yamato from "./images/Yamato.jpg";
 import jinbe from "./images/jinbe.png";
 import Hawkins from "./images/Hawkins.jpg";
-import Apoo from "./images/Apoo.jpg";
-import Bartolomeo from "./images/Bartolomeo.jpeg";
+import aokiji from "./images/aokiji.jpg";
+import lucci from "./images/lucci.jpg";
+import momonuske from "./images/momonuske.jpeg";
+
 import { useState, useEffect } from "react";
 
 const firebaseConfig = {
@@ -89,12 +90,12 @@ function App() {
   const [isActive, setIsActive] = useState(-1);
   const [previouslyClicked, setPreviouslyClicked] = useState([-1]);
   const [searchItems, setSearchItems] = useState([
+    { image: aokiji, name: "Aokiji", block: 317, found: false },
+    { image: momonuske, name: "Momonuske", block: 302, found: false },
     { image: luffy, name: "Luffy", block: 58, found: false },
-    { image: Yamato, name: "Yamato", block: 303, found: false },
     { image: jinbe, name: "Jinbe", block: 128, found: false },
-    { image: Hawkins, name: "Hawkins", block: 198, found: false },
-    { image: Apoo, name: "Apoo", block: 242, found: false },
-    { image: Bartolomeo, name: "Bartolomeo", block: 88, found: false },
+    { image: Hawkins, name: "Hawkins", block: 197, found: false },
+    { image: lucci, name: "Lucci", block: 146, found: false },
   ]);
 
   function checkChoice(index: number, name: string) {

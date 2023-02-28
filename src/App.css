@@ -10,24 +10,25 @@
 .main {
   position: relative;
   width: 200vw;
-  min-height: 100vh;
+  height: 100%;
   position: relative;
   background-image: url(./images/wheresLuffy.png);
   background-position: center left;
   background-size: 100% 100%;
   background-repeat: no-repeat;
   display: grid;
-  grid-template-columns: repeat(23, minmax(20px, 80px));
+  grid-template-columns: repeat(23, minmax(30px, 120px));
   grid-template-rows: repeat(15, 80px);
 }
-/* .clickBox {
-  position: absolute;
-  width: 70px;
-  height: 70px;
-  background-color: rgba(0, 0, 0, 30%);
-  border: white 5px dotted;
-  border-radius: 50%;
-} */
+.containerItem {
+  height: 80px;
+  position: relative;
+  text-align: center;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+}
+
 .choiceList {
   color: black;
   background-color: white;
@@ -63,22 +64,13 @@
   z-index: 1;
 }
 
-.containerItem {
-  height: 80px;
-  position: relative;
-  text-align: center;
-  color: white;
-  font-size: 20px;
-  font-weight: bold;
-}
-
 .display {
   border: 5px white solid;
 }
 .found {
   background-color: rgba(0, 0, 0, 0.3);
   border: 3px black dashed;
-  border-radius: 4px;
+  border-radius: 6px;
 }
 
 .characterImage {
@@ -111,7 +103,7 @@
   font-family: Kool-Font;
   position: absolute;
   padding: 50px;
-  margin-top: 200px;
+  margin-top: 50px;
   left: 40%;
   width: 500px;
   background-color: rgba(255, 255, 255, 0.9);
@@ -128,13 +120,14 @@ ul {
   height: 92px;
 }
 li {
-  font-size: 3rem;
+  font-size: 2.6rem;
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  margin: 20px ;
 }
 .introTitle {
-  font-size: 3.5rem;
+  font-size: 3rem;
   font-weight: bold;
 }
 
@@ -188,21 +181,21 @@ input {
   position: absolute;
   z-index: 1;
   width: 100vw;
-  height: 100vh;
+  height: 400vh;
   font-family: monospace;
   font-size: 3rem;
   background-color: white;
 }
 .highScoreItem {
   border: 2px black dashed;
-  width: 350px;
-  font-size: 20px;
-  padding: 20px;
+  width: 300px;
+  font-size: 12px;
+  padding: 12px;
 }
 .scoreBoardDisp {
   display: flex;
   justify-content: space-around;
-  padding: 40px;
+  padding-top: 10px;
 }
 
 .clearBoardBtn {
@@ -210,5 +203,9 @@ input {
 }
 
 .highScoreList {
+  margin: 0;
   list-style: decimal;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
 }

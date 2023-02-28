@@ -192,6 +192,7 @@ input {
   width: 300px;
   font-size: 12px;
   padding: 12px;
+  margin: 0;
 }
 .scoreBoardDisp {
   display: flex;

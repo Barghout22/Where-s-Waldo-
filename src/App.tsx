@@ -119,12 +119,12 @@ function App() {
       setFoundCharacter(name);
       setTimeout(() => {
         setFoundCharacter("None");
-      }, 1500);
+      }, 1250);
     } else {
       setMadeWrongSelection(true);
       setTimeout(() => {
         setMadeWrongSelection(false);
-      }, 1500);
+      }, 1250);
     }
   }
 
